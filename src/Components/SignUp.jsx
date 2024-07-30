@@ -9,24 +9,24 @@ function SignUp() {
 
   return (
     <div className="signup-container">
-      <form className="signup-form" >
+      <div className="signup-form" >
         <h1>Sign Up</h1>
         <input 
           type="text" 
           name="Email" 
           id="Email" 
           placeholder="Email" 
-          onChange={(e) => setEmail(e.target.value)} 
+          onChange={(e) => setEmail(e.currentTarget.value)} 
         />
         <input 
           type="password" 
           name="Password" 
           id="Password" 
           placeholder="Password" 
-          onChange={(e) => setPassword(e.target.value)} 
+          onChange={(e) => setPassword(e.currentTarget.value)} 
         />
         <button onClick={() => signUp(email, password)}>Sign Up</button>
-      </form>
+      </div>
     </div>
   );
 }

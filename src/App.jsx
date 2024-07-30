@@ -1,49 +1,48 @@
 import React from 'react';
 import './App.css';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification ,signOut} from 'firebase/auth';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import LoginC from './Components/Login';
 import SignUpC from './Components/SignUp';
 import Main from './Components/Main';
 import ProtectedRoute from './Components/ProtectedRoutes';
-import Auth from './firebaseConfig';
+import auth from './firebaseConfig';
 import { AuthContext } from './AuthContext';
 
 function App() {
-  const navigator = useNavigate();
-  const signUp = (email, password) => {
-    createUserWithEmailAndPassword(Auth, email, password)
-    .then((d) => {
-      return sendEmailVerification(d.user);
-    })
-    .then(() =>{
-      alert(
-        "Your account created!. Please verify it by the email sent to you"
-      )
-      navigator("/Login");
-    }
-   
-    )
-    .catch((err) => alert(err.message));
-  }
+  const navigate = useNavigate();
   const signIn = (email, password) => {
-    signInWithEmailAndPassword(Auth, email, password)
-      .then((userCredential) => {
+    signInWithEmailAndPassword(auth, email, password)
+      .then((data) => {
+        const uerresp = data.user;
 
-        const user = userCredential.user;
-        alert("user login")
-        navigator("/main");
-        // ...
+        if (uerresp.emailVerified == false) {
+          alert("Hey please verify your email");
+          signOut(auth).then(() => console.log(auth.currentUser));
+        } else {
+          alert("Login success");
+          navigate("/main");
+        }
       })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        alert(errorCode)
-        // ..
-      });
-  }
+      .catch((err) => alert(err.message));
+  };
 
-  console.log(Auth)
+  const signUp = (email, password) => {
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((d) => {
+        return sendEmailVerification(d.user);
+      })
+      .then(() =>{
+        alert(
+          "Your account created!. Please verify it by the email sent to you"
+        )
+        navigate('/login')
+      }
+      )
+      .catch((err) => alert(err.message));
+  };
+
+  console.log(auth)
 
 
   return (
@@ -59,8 +58,8 @@ function App() {
       <main className="main-content">
         <AuthContext.Provider value={{ signIn, signUp }}>
           <Routes>
+          <Route path="/" element={<SignUpC />} />
             <Route path="/login" element={<LoginC />} />
-            <Route path="/" element={<SignUpC />} />
             <Route path="/main" element={<ProtectedRoute><Main /></ProtectedRoute>} />
           </Routes>
         </AuthContext.Provider>

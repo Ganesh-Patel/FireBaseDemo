@@ -9,24 +9,24 @@ function Login() {
 
   return (
     <div className="login-container">
-      <form className="login-form">
+      <div className="login-form">
         <h1>Login</h1>
         <input 
           type="text" 
           name="Email" 
           id="Email" 
           placeholder="Email" 
-          onChange={(e) => setEmail(e.target.value)} 
+          onChange={(e) => setEmail(e.currentTarget.value)} 
         />
         <input 
           type="password" 
           name="Password" 
           id="Password" 
           placeholder="Password" 
-          onChange={(e) => setPassword(e.target.value)} 
+          onChange={(e) => setPassword(e.currentTarget.value)} 
         />
         <button onClick={() => signIn(email, password)}>Sign In</button>
-      </form>
+      </div>
     </div>
   );
 }

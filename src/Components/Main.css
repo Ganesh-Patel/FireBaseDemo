@@ -4,14 +4,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    width: 100%;
+    height: 80vh;
     background-color: #f0f4f8;
+    background-image: url('https://static.vecteezy.com/system/resources/previews/015/634/808/non_2x/circular-hud-connection-with-circuit-board-futuristic-modern-website-background-or-cover-page-for-technology-and-finance-concept-and-education-future-company-vector.jpg');
     font-family: 'Arial', sans-serif;
   }
   
   .welcome-box {
     text-align: center;
-    background-color: #ffffff;
+    background-color: transparent;
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -19,12 +21,12 @@
   
   .welcome-title {
     font-size: 2.5em;
-    color: #333;
+    color: #fdf9f9;
     margin-bottom: 20px;
   }
   
   .welcome-message {
     font-size: 1.2em;
-    color: #666;
+    color: #f1ebeb;
   }
   
